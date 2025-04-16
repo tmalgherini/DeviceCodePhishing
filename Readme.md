@@ -12,7 +12,7 @@ The goal of this tool is to also automate this once the victim clicked on a phis
 
 Currently, this tool can only be used to target Microsoft Azure Entra Users. But the technique is not limited to a certain vendor.
 
-More Details can be found on that [Blog Post]()
+More Details can be found on that [Blog Post](https://denniskniep.github.io/posts/09-device-code-phishing)
 
 ## How it works
 1. Attacker sends an url to the victim
@@ -30,12 +30,12 @@ More Details can be found on that [Blog Post]()
 ## Run
 By default, it runs with tenant set to `common` and with the AuthenticationBroker ClientId `29d9ed98-a469-4536-ade2-f981bc1d605e`
 ```shell
-docker run -p 8080:8080 device-code-phishing
+docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0
 ```
 
 Use the args if one want to define a specific tenant or a different clientId
 ```shell
-docker run -p 8080:8080 device-code-phishing --tenant <tenantId> --client-id <clientId> --verbose
+docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0 --tenant <tenantId> --client-id <clientId> --verbose
 ```
 
 ## Use
