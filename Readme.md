@@ -27,11 +27,6 @@ More Details can be found on that [Blog Post]()
 6. attacker is authenticated
 
 
-## Build
-```shell
-docker build . -t device-code-phishing
-```
-
 ## Run
 By default, it runs with tenant set to `common` and with the AuthenticationBroker ClientId `29d9ed98-a469-4536-ade2-f981bc1d605e`
 ```shell
@@ -46,6 +41,11 @@ docker run -p 8080:8080 device-code-phishing --tenant <tenantId> --client-id <cl
 ## Use
 Open Url: 
 http://localhost:8080/lure
+
+## Build it yourself
+```shell
+docker build . -t device-code-phishing
+```
 
 ## Disclaimer
 Provided as educational content only!
