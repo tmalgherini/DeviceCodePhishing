@@ -24,3 +24,4 @@ COPY --from=build /myapp /myapp
 WORKDIR /app
 EXPOSE 8080
 ENTRYPOINT [ "/myapp"]
+CMD ["server"]

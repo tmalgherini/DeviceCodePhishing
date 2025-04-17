@@ -42,10 +42,33 @@ docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0 --tenant
 Open Url: 
 http://localhost:8080/lure
 
-## Build it yourself
+## Build it yourself 
+```shell
+go build main.go
+```
+
+```shell
+./main server
+```
+
+
+## Build & Run it yourself with Docker
 ```shell
 docker build . -t device-code-phishing
 ```
+
+```shell
+docker run -p 8080:8080 device-code-phishing
+```
+
+## Entra ClientIds
+
+| ClientId                             | Description                     |
+|--------------------------------------|---------------------------------|
+| 29d9ed98-a469-4536-ade2-f981bc1d605e | Microsoft Authentication Broker |
+| 9ba1a5c7-f17a-4de9-a1f1-6178c8d51223 | Microsoft Intune Company Portal |
+
+Hint: Use Microsoft Intune Company Portal for bypassing Intune compliant device Conditional Access Policy ([More Details](https://i.blackhat.com/EU-24/Presentations/EU-24-Chudo-Unveiling-the-Power-of-Intune-Leveraging-Intune-for-Breaking-Into-Your-Cloud-and-On-Premise.pdf))
 
 ## Disclaimer
 Provided as educational content only!
