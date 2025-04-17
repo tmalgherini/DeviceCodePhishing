@@ -27,15 +27,16 @@ More Details can be found on that [Blog Post](https://denniskniep.github.io/post
 6. attacker is authenticated
 
 
-## Run
+
+## Run with Docker
 By default, it runs with tenant set to `common` and with the AuthenticationBroker ClientId `29d9ed98-a469-4536-ade2-f981bc1d605e`
 ```shell
 docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0
 ```
 
-Use the args if one want to define a specific tenant or a different clientId
+Use the args if one want to define a specific tenant, a different clientId or a custom userAgent
 ```shell
-docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0 --tenant <tenantId> --client-id <clientId> --verbose
+docker run -p 8080:8080 ghcr.io/denniskniep/device-code-phishing:v1.0.0 --tenant <tenantId> --client-id <clientId> --user-agent <userAgent> --verbose
 ```
 
 ## Use
