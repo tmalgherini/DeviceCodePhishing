@@ -22,13 +22,11 @@ For more details, check out the blog post: [Phishing despite FIDO, leveraging th
 3. When the URL is opened, a headless browser is started, performing the following automated steps:
    - Starts the Device Code Flow with `<tenant>` and `<clientId>`
    - Opens the device-code webpage and enters the corresponding user-code
-   - The device-code webpage forwards the user to the URL for interactive authentication
+   - The device-code webpage forwards to the URL for interactive authentication
    - Returns the URL for interactive authentication as a redirect to the victim
 4. The victim is redirected to the authentication URL
 5. The victim completes the authentication
 6. The attacker is authenticated
-
-
 
 ## Run with Docker
 By default, it runs with tenant set to `common` and with the AuthenticationBroker ClientId `29d9ed98-a469-4536-ade2-f981bc1d605e`
