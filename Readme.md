@@ -22,7 +22,7 @@ For more details, check out the blog post: [Phishing despite FIDO, leveraging th
 3. When the URL is opened, a headless browser is started, performing the following automated steps:
    - Starts the Device Code Flow with `<tenant>` and `<clientId>`
    - Opens the device-code webpage and enters the corresponding user-code
-   - The device-code webpage forwards to the URL for interactive authentication
+   - The device-code webpage forwards to the URL for interactive authentication (By clicking on "Can't access your account" and immediately navigating back by clicking the cancel button, see [here](https://github.com/denniskniep/DeviceCodePhishing/blob/main/pkg/entra/devicecode.go#L101))
    - Returns the URL for interactive authentication as a redirect to the victim
 4. The victim is redirected to the authentication URL
 5. The victim completes the authentication
