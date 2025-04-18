@@ -32,6 +32,7 @@ func init() {
 var runCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Starts the phishing server",
+	Long:  "Starts the phishing server by default on http://localhost:8080/lure",
 	Run: func(cmd *cobra.Command, args []string) {
 		// Set up a resource handler
 		http.HandleFunc("/lure", lureHandler)
@@ -42,7 +43,7 @@ var runCmd = &cobra.Command{
 		}
 
 		slog.Info("Start Server using Tenant:" + tenant + " ClientId:" + clientId)
-
+		slog.Info("Use address http://localhost" + address + "/lure")
 		// Listen to HTTP connections and wait
 		log.Fatal(server.ListenAndServe())
 	},

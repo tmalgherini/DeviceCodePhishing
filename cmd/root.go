@@ -13,13 +13,14 @@ import (
 var (
 	noBanner bool
 	verbose  bool
+	version  = "1.0.0"
 )
 
 var rootCmd = &cobra.Command{
 	Use:     "devicecodephishing",
 	Short:   "Phishing access-tokens with the Device Code Flow",
 	Long:    `DeviceCodePhishing is an advanced phishing tool. It can be used for phishing access-tokens with the Device Code Flow.`,
-	Version: "1.0.0",
+	Version: version,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 		slog.SetDefault(logger)
@@ -30,7 +31,7 @@ var rootCmd = &cobra.Command{
 		}
 
 		if !noBanner && cmd.Short != "Help about any command" && !strings.HasPrefix(cmd.Short, "Generate the autocompletion script for") {
-			utils.PrintBanner()
+			utils.PrintBanner(version)
 		}
 	},
 }
