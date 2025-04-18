@@ -1,5 +1,5 @@
 # DeviceCodePhishing
-DeviceCodePhishing is an advanced phishing tool.
+DeviceCodePhishing is an advanced phishing tool, which leverages the Device Code Flow.
 It can be used for phishing access-tokens, which in turn allows to bypass two-factor authentication protection, including accounts that exclusively use FIDO for authentication.
 
 This attack technique is even more dangerous than attacker-in-the-middle (AitM) proxies, because the 
