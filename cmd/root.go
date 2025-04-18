@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/denniskniep/DeviceCodePhishing/pkg/utils"
 	"log/slog"
-	"main/pkg/utils"
 	"os"
 	"strings"
 
@@ -17,7 +17,7 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:     "devicecodephishing",
+	Use:     "DeviceCodePhishing",
 	Short:   "Phishing access-tokens with the Device Code Flow",
 	Long:    `DeviceCodePhishing is an advanced phishing tool. It can be used for phishing access-tokens with the Device Code Flow.`,
 	Version: version,

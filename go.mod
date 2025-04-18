@@ -1,4 +1,4 @@
-module main
+module github.com/denniskniep/DeviceCodePhishing
 
 go 1.23.4
 

