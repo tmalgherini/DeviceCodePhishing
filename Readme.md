@@ -1,4 +1,12 @@
 # DeviceCodePhishing
+
+## TL;DR;
+* It´s a phishing server leveraging the Device Code Flow
+* Capable of bypassing FIDO, even if FIDO is the only authentication method available to the victim
+* Victim visits the phishing URL and is instantly redirected to the authentication page (no need for the victim to manually enter the code)
+* Victim completes authentication on the original webpage (no suspicious URL involved)
+
+## Description 
 DeviceCodePhishing is an advanced phishing tool, which leverages the Device Code Flow.
 It can be used for phishing access-tokens, which in turn allows to bypass two-factor authentication protection, including accounts that exclusively use FIDO for authentication.
 
