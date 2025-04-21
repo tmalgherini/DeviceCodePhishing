@@ -1,28 +1,29 @@
 # DeviceCodePhishing
 
 ## TL;DR;
-* It´s a phishing server leveraging the Device Code Flow
-* Capable of bypassing FIDO, even if FIDO is the only authentication method available to the victim
-* Victim visits the phishing URL and is instantly redirected to the authentication page (no need for the victim to manually enter the code)
-* Victim completes authentication on the original webpage (no suspicious URL involved)
+This is a novel technique that leverages the well-known Device Code phishing approach. It dynamically initiates the flow when the victim opens the phishing link and instantly redirects them to the authentication page. A headless browser automates the flow by starting the Device Code process and entering the code into the webpage, eliminating the need for the victim to manually perform these steps. This defeats the 10-minute token validity limitation.  
+What makes Device Code phishing especially dangerous is its ability to bypass FIDO’s phishing protection. Additionally, the victim interacts with the original website they expect, making it impossible to detect the attack based on a suspicious URL.
+
+## Demo
+https://gist.github.com/user-attachments/assets/bf6d1c2d-7199-4394-824d-e6f57e8136a2
 
 ## Description 
 DeviceCodePhishing is an advanced phishing tool, which leverages the Device Code Flow.
 It can be used for phishing access-tokens, which in turn allows to bypass two-factor authentication protection, including accounts that exclusively use FIDO for authentication.
-
-This attack technique is even more dangerous than attacker-in-the-middle (AitM) proxies, because the 
-user **enters their credentials on the original webpage**, making it nearly impossible to detect the phishing attempt based on a suspicious URL.
-Additionally, this technique can **bypass phishing-resistant FIDO** credentials!
-In some cases, the user may not even need to enter credentials if a session is already active.
 
 While other tools exist to automate device code phishing attacks, they often come with certain limitations, 
 such as requiring the attacker to convince the victim to open the URL and enter the code within a strict 10-minute time frame.
 The goal of this tool is to overcomes those limitations by automating the process with a headless browser, which initiates the attack 
 as soon as the victim clicks on the phishing link.
 
+This attack technique is even more dangerous than attacker-in-the-middle (AitM) proxies, because the
+user **enters their credentials on the original webpage**, making it nearly impossible to detect the phishing attempt based on a suspicious URL.
+Additionally, this technique can **bypass phishing-resistant FIDO** credentials!
+In some cases, the user may not even need to enter credentials if a session is already active.
+
 Currently, this tool is limited to targeting Microsoft Azure Entra users, but the underlying technique is not restricted to any specific vendor.
 
-For more details, check out the blog post: [Phishing despite FIDO, leveraging the device code flow](https://denniskniep.github.io/posts/09-device-code-phishing)
+For more details, check out the blog post: [Phishing despite FIDO, leveraging a novel technique based on the Device Code Flow](https://denniskniep.github.io/posts/09-device-code-phishing)
 
 ## How it works
 1. The attacker sends a URL to the victim
@@ -64,8 +65,6 @@ DeviceCodePhishing server --help
 Open Url:
 http://localhost:8080/lure
 
-## Demo
-https://gist.github.com/user-attachments/assets/bf6d1c2d-7199-4394-824d-e6f57e8136a2
 
 ## Azure Entra ClientIds
 
