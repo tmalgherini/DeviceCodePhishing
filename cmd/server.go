@@ -6,12 +6,14 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 	"log/slog"
+	"net"
 	"net/http"
+	"os"
 	"time"
 )
 
+const EdgeOnWindows string = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edq/135.0.0.0"
 const MsAuthenticationBroker string = "29d9ed98-a469-4536-ade2-f981bc1d605e"
-const EdgeOnWindows string = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0"
 const DefaultTenant string = "common"
 
 var (
@@ -37,13 +39,25 @@ var runCmd = &cobra.Command{
 		// Set up a resource handler
 		http.HandleFunc("/lure", lureHandler)
 
+		host, port, err := net.SplitHostPort(address)
+
+		if err != nil || port == "" {
+			slog.Error("'"+address+"' is not a valid address", err)
+			os.Exit(1)
+		}
+
 		// Create a Server instance to listen on port
 		server := &http.Server{
 			Addr: address,
 		}
 
 		slog.Info("Start Server using Tenant:" + tenant + " ClientId:" + clientId)
-		slog.Info("Use address http://localhost" + address + "/lure")
+		if host == "" {
+			host = "localhost"
+		}
+
+		slog.Info("Use address " + host + ":" + port + "/lure")
+
 		// Listen to HTTP connections and wait
 		log.Fatal(server.ListenAndServe())
 	},
